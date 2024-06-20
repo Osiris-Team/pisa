@@ -30,3 +30,7 @@ node_modules
 *.aux
 *.log
 docs/**/*.pdf
+
+# Visual Studio and Code
+.vs/
+.vscode/

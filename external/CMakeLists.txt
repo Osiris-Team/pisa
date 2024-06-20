@@ -5,7 +5,9 @@ EXECUTE_PROCESS(COMMAND git submodule update --init --recursive
 
 # Add FastPFor
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/FastPFor EXCLUDE_FROM_ALL)
-target_compile_options(FastPFor PRIVATE -Wno-cast-align)
+if (NOT MSVC)
+    target_compile_options(FastPFor PRIVATE -Wno-cast-align)
+endif()
 
 # Add CLI11
 if (NOT PISA_SYSTEM_CLI11 AND PISA_BUILD_TOOLS)
@@ -18,11 +20,15 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/streamvbyte/include)
 add_library(streamvbyte STATIC ${CMAKE_CURRENT_SOURCE_DIR}/streamvbyte/src/streamvbyte.c
                                ${CMAKE_CURRENT_SOURCE_DIR}/streamvbyte/src/streamvbytedelta.c
 )
-target_compile_options(streamvbyte PRIVATE -Wno-cast-align
-                                           -Wno-incompatible-pointer-types
-                                           -Wno-implicit-function-declaration
+target_compile_options(streamvbyte PRIVATE
+                       -Wno-incompatible-pointer-types
+                       -Wno-implicit-function-declaration
 )
 target_compile_options(streamvbyte INTERFACE -Wno-unused-function)
+
+if (NOT MSVC)
+    target_compile_options(streamvbyte PRIVATE -Wno-cast-align)
+endif()
 
 # Add maskedvbyte
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/MaskedVByte/include)
@@ -82,11 +88,15 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/trecpp)
 # Add trecpp
 set(WAPOPP_ENABLE_TESTING OFF CACHE BOOL "skip wapopp testing")
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/wapopp)
-target_compile_options(wapopp PRIVATE -Wno-error=all -Wno-missing-braces)
+if (NOT MSVC)
+    target_compile_options(wapopp PRIVATE -Wno-error=all -Wno-missing-braces)
+endif()
 
 # Add fmt
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/fmt)
-target_compile_options(fmt INTERFACE -Wno-deprecated-declarations)
+if (NOT MSVC)
+    target_compile_options(fmt INTERFACE -Wno-deprecated-declarations)
+endif()
 
 # Add spdlog
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/spdlog)
@@ -97,7 +107,9 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/range-v3)
 
 # Add RapidCheck
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/rapidcheck)
-target_compile_options(rapidcheck PRIVATE -Wno-error)
+if (NOT MSVC)
+    target_compile_options(rapidcheck PRIVATE -Wno-error)
+endif()
 
 # Add taily
 set(TAILY_ENABLE_TESTING OFF CACHE BOOL "skip taily testing")

@@ -26,7 +26,7 @@ option(PISA_CI_BUILD "Remove debug information from Debug build" OFF)
 option(PISA_SANITIZERS "Compile with address and UB sanitizers" OFF)
 
 option(PISA_SYSTEM_GOOGLE_BENCHMARK "Use system installation of Google benchmark library" OFF)
-option(PISA_SYSTEM_ONETBB "Use system installation of oneTBB" OFF)  # Updated to default ON
+option(PISA_SYSTEM_ONETBB "Use system installation of oneTBB" OFF)
 option(PISA_SYSTEM_BOOST "Use system installation of Boost" OFF)
 option(PISA_SYSTEM_CLI11 "Use system headers for CLI11" OFF)
 
