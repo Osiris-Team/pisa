@@ -26,7 +26,7 @@ option(PISA_CI_BUILD "Remove debug information from Debug build" OFF)
 option(PISA_SANITIZERS "Compile with address and UB sanitizers" OFF)
 
 option(PISA_SYSTEM_GOOGLE_BENCHMARK "Use system installation of Google benchmark library" OFF)
-option(PISA_SYSTEM_ONETBB "Use system installation of oneTBB" OFF)
+option(PISA_SYSTEM_ONETBB "Use system installation of oneTBB" OFF)  # Updated to default ON
 option(PISA_SYSTEM_BOOST "Use system installation of Boost" OFF)
 option(PISA_SYSTEM_CLI11 "Use system headers for CLI11" OFF)
 
@@ -70,7 +70,7 @@ set_property(TARGET gumbo::gumbo APPEND PROPERTY IMPORTED_LOCATION
     ${CMAKE_BINARY_DIR}/gumbo-parser/lib/libgumbo.a)
 add_dependencies( gumbo::gumbo gumbo-external )
 
-if (UNIX)
+if (UNIX AND NOT WIN32)
    # For hardware popcount and other special instructions
    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
 
